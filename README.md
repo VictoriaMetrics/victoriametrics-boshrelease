@@ -36,7 +36,7 @@ Depends on your network configuration you can access victoriametrics UI on https
 <details>
       <summary>Victoria-metrics deployment with grafana and route registration in CF.</summary>
 
-* Create UAA client for bosh-exporter by applying [manifests/bosh/add-bosh-exporter-uaa-clients.yml ](https://github.com/VictoriaMetrics/victoriametrics-boshrelease/blob/master/bosh/add-bosh-exporter-uaa-clients.yml) to your bosh director deployment
+* Create UAA client for bosh-exporter by applying [manifests/operators/bosh/add-bosh-exporter-uaa-clients.yml ](https://github.com/VictoriaMetrics/victoriametrics-boshrelease/blob/master/bosh/add-bosh-exporter-uaa-clients.yml) to your bosh director deployment
 
       bosh -d victoria-metrics deploy manifests/victoria-metrics.yml \
             -o manifests/operators/monitor-bosh.yml \
@@ -62,7 +62,7 @@ Depends on your network configuration you can access victoriametrics UI on https
             -v system_domain=
 
 * Please provide all required variables for command above.
-* UAA clients for cf_exporter and firehose_exporter should be created with [manifests/cf/add-cf-uaa-clients.yml ](https://github.com/VictoriaMetrics/victoriametrics-boshrelease/blob/master/cf/add-cf-uaa-clients.yml) ops file applied to your CF deployment.
+* UAA clients for cf_exporter and firehose_exporter should be created with [manifests/operators/cf/add-cf-uaa-clients.yml ](https://github.com/VictoriaMetrics/victoriametrics-boshrelease/blob/master/cf/add-cf-uaa-clients.yml) ops file applied to your CF deployment.
 
 
 You can access grafana UI on https://grafana.system_domain
