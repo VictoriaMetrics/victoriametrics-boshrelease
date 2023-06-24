@@ -1,0 +1,50 @@
+- type: replace
+  path: /instance_groups/name=victoria-metrics/jobs/name=victoria-metrics/properties/victoria-metrics?/tls?
+  value:
+    ca: ((tls_victoria_metrics.ca))
+    certificate: ((tls_victoria_metrics.certificate))
+    private_key: ((tls_victoria_metrics.private_key))
+
+- type: replace
+  path: /instance_groups/name=victoria-metrics/jobs/name=victoria-metrics/properties/victoria-metrics?/scrape_configs?
+  value:
+  - job_name: victoria-metrics
+    static_configs:
+    - targets:
+      - localhost:8428
+    basic_auth:
+      username: 'admin'
+      password: ((victoria_metrics_password))
+    scheme: https
+    tls_config:
+      cert_file: '/var/vcap/jobs/victoria-metrics/config/victoria-metrics.crt'
+      key_file: '/var/vcap/jobs/victoria-metrics/config/victoria-metrics.key'
+      ca_file: '/var/vcap/jobs/victoria-metrics/config/victoria-metrics-ca.crt'
+
+- type: replace
+  path: /variables/-
+  value:
+    name: victoria_metrics_ca
+    type: certificate
+    options:
+      is_ca: true
+      common_name: ca
+
+- type: replace
+  path: /variables/-
+  value:
+    name: tls_victoria_metrics
+    type: certificate
+    options:
+      ca: victoria_metrics_ca
+      common_name: victoriametrics.((system_domain))
+      alternative_names:
+      - "victoriametrics.((system_domain))"
+      - "victoriametrics.((apps_domain))"
+      - "victoriametrics.default.victoria-metrics.bosh"
+      - "*.victoriametrics.default.victoria-metrics.bosh"
+      - "*.((system_domain))"
+      - "localhost"
+      extended_key_usage:
+      - server_auth
+      - client_auth

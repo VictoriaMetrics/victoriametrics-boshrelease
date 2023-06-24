@@ -1,0 +1,52 @@
+# config file version
+apiVersion: 1
+
+# list of datasources that should be deleted from the database
+deleteDatasources:
+  - name: <%= p('grafana.victoria-metrics.datasource_name') %>
+    orgId: 1
+
+<% if_link('victoria-metrics') do |victoria| %>
+<%
+  # Try to pick the prometheus instance deployed at the same az
+  vinstances = victoria.instances.select { |instance| instance.az == spec.az }
+  victoria_ip = vinstances.empty? ? victoria.instances.first.address : vinstances.first.address
+
+  purl = "http://#{victoria_ip}:#{victoria.p('victoria-metrics.web.port')}"
+  pbasic_auth = "true"
+  pbasic_auth_user = "#{victoria.p('victoria-metrics.http_auth.username')}"
+  pbasic_auth_password = "#{victoria.p('victoria-metrics.http_auth.password')}"
+  pjson_data = ""
+
+%>
+
+# list of datasources to insert/update depending
+# whats available in the database
+datasources:
+  # <string, required> name of the datasource. Required
+  - name: <%= p('grafana.victoria-metrics.datasource_name') %>
+    # <int> datasource config version
+    version: 1
+    # <int> org id. will default to orgId 1 if not specified
+    orgId: 1
+    # <string, required> datasource type. Required
+    type: prometheus
+    # <string, required> access mode. direct or proxy. Required
+    access: proxy
+    # <string> url
+    url: <%= purl %>
+    # <bool> enable/disable basic auth
+    basicAuth: <%= pbasic_auth %>
+    # <string> basic auth username
+    basicAuthUser: <%= pbasic_auth_user %>
+    # <bool> mark as default datasource. Max one per org
+    isDefault: true
+    # <map> fields that will be converted to json and stored in json_data
+    jsonData: <%= pjson_data %>
+    # <string> json object of data that will be encrypted.
+    secureJsonData:
+      # <string> basic auth password
+      basicAuthPassword: <%= pbasic_auth_password %>
+    # <bool> allow users to edit datasources from the UI.
+    editable: true
+<% end %>

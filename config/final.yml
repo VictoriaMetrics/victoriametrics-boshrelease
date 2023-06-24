@@ -1,0 +1,6 @@
+---
+final_name: victoria-metrics
+blobstore:
+  provider: gcs
+  options:
+    bucket_name: victoria-metrics-bosh-release # google was not allowed in bucket names

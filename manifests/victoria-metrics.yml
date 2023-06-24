@@ -1,0 +1,134 @@
+---
+name: victoria-metrics
+
+instance_groups:
+
+- name: database
+  azs:
+    - AZ1
+  instances: 1
+  vm_type: large
+  persistent_disk: 10_240
+  stemcell: default
+  networks:
+    - name: Infrastructure
+  jobs:
+    - name: postgres
+      release: postgres
+      properties:
+        databases:
+          port: 5432
+          databases:
+            - name: grafana
+              citext: true
+          roles:
+            - name: grafana
+              password: ((postgres_grafana_password))
+    - name: postgres_exporter
+      release: victoria-metrics
+      properties:
+        postgres_exporter:
+          datasource_name: postgresql://grafana:((postgres_grafana_password))@127.0.0.1:5432/?sslmode=disable
+
+- name: victoria-metrics
+  azs:
+  - AZ1
+  instances: 1
+  vm_type: 2xlarge
+  persistent_disk: 307200
+  stemcell: default
+  networks:
+  - name: Infrastructure
+  jobs:
+  - name: victoria-metrics
+    release: victoria-metrics
+    properties:
+      victoria-metrics:
+        http_auth:
+          password: ((victoria_metrics_password))
+          username: admin
+        rule_files:
+          - /var/vcap/jobs/postgres_alerts/*.alerts.yml
+          - /var/vcap/jobs/prometheus_alerts/*.alerts.yml
+        scrape_configs:
+          - job_name: victoria-metrics
+            static_configs:
+            - targets:
+              - localhost:8428
+            basic_auth:
+              username: 'admin'
+              password: ((victoria_metrics_password))
+
+
+- name: grafana
+  azs:
+    - AZ1
+  instances: 1
+  vm_type: large
+  persistent_disk: 1_024
+  stemcell: default
+  networks:
+    - name: Infrastructure
+  jobs:
+    - name: grafana
+      release: victoria-metrics
+      properties:
+        grafana:
+          database:
+            type: postgres
+            port: 5432
+            name: grafana
+            user: grafana
+            password: ((postgres_grafana_password))
+          security:
+            admin_user: admin
+            admin_password: ((grafana_password))
+            secret_key: ((grafana_secret_key))
+          dashboards:
+          victoria-metrics:
+            dashboard_folders:
+              - name: Grafana
+                files:
+                  - /var/vcap/jobs/grafana_dashboards/*.json
+              - name: PostgreSQL
+                files:
+                  - /var/vcap/jobs/postgres_dashboards/*.json
+    - name: grafana_dashboards
+      release: victoria-metrics
+    - name: postgres_dashboards
+      release: victoria-metrics
+
+
+variables:
+  - name: postgres_grafana_password
+    type: password
+  - name: grafana_password
+    type: password
+  - name: grafana_secret_key
+    type: password
+  - name: victoria_metrics_password
+    type: password
+
+
+update:
+  canaries: 1
+  max_in_flight: 32
+  canary_watch_time: 1000-100000
+  update_watch_time: 1000-100000
+  serial: false
+
+stemcells:
+- alias: default
+  os: ubuntu-xenial
+  version: latest
+
+releases:
+- name: victoria-metrics
+  version: latest
+- name: postgres
+  version: "44"
+  url: https://bosh.io/d/github.com/cloudfoundry/postgres-release?v=44
+  sha1: 582b1de9522077102dfa44ff7164cd8f499dbfc8
+
+features:
+  use_dns_addresses: true

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -eux
+
+# Copy common utils
+mkdir -p "${BOSH_INSTALL_TARGET}/common"
+cp "${BOSH_COMPILE_TARGET}/common/utils.sh" "${BOSH_INSTALL_TARGET}/common"
+
+# Extract package
+mkdir -p "${BOSH_INSTALL_TARGET}/bin"
+tar xzvf "${BOSH_COMPILE_TARGET}/victoria-metrics/victoria-metrics-linux-amd64-v1.87.1.tar.gz" -C "${BOSH_INSTALL_TARGET}/bin"

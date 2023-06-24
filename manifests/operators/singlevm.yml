@@ -1,0 +1,9 @@
+- type: remove
+  path: /instance_groups/name=database
+
+- type: remove
+  path: /instance_groups/name=grafana
+
+# - type: replace
+#   path: /instance_groups/name=firehose/instances
+#   value: 0

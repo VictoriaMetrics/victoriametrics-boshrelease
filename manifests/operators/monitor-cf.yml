@@ -1,0 +1,71 @@
+# Apply ./cf/add-cf-uaa-clients.yml to your cf-deployment based Cloud Foundry
+# This file assumes bosh_exporter based Service Discovery is being used: ./monitor-bosh.yml
+
+# Exporter jobs
+- type: replace
+  path: /instance_groups/name=victoria-metrics/jobs/-
+  value:
+    name: cf_exporter
+    release: victoria-metrics
+    properties:
+      cf_exporter:
+        cf:
+          api_url: https://api.((system_domain))
+          client_id: "((uaa_clients_cf_exporter_id))"
+          client_secret: "((uaa_clients_cf_exporter_secret))"
+          deployment_name: ((metron_deployment_name))
+        metrics:
+          environment: "((metrics_environment))"
+        skip_ssl_verify: ((skip_ssl_verify))
+
+- type: replace
+  path: /instance_groups/-
+  value:
+    name: firehose
+    azs:
+      - z1
+    instances: 1
+    vm_type: default
+    stemcell: default
+    networks:
+      - name: default
+    jobs:
+      - name: firehose_exporter
+        release: victoria-metrics
+        properties:
+          firehose_exporter:
+            doppler:
+              subscription_id: "((metrics_environment))"
+              max_retry_count: 300
+            logging:
+              url: wss://doppler.((system_domain)):((traffic_controller_external_port))
+              use_legacy_firehose: true
+            uaa:
+              url: https://uaa.((system_domain))
+              client_id: "((uaa_clients_firehose_exporter_id))"
+              client_secret: "((uaa_clients_firehose_exporter_secret))"
+            metrics:
+              environment: "((metrics_environment))"
+            skip_ssl_verify: ((skip_ssl_verify))
+
+# Prometheus Alerts
+- type: replace
+  path: /instance_groups/name=victoria-metrics/jobs/name=cloudfoundry_alerts?/release
+  value: victoria-metrics
+
+- type: replace
+  path: /instance_groups/name=victoria-metrics/jobs/name=victoria-metrics/properties/victoria-metrics/rule_files/-
+  value: /var/vcap/jobs/cloudfoundry_alerts/*.alerts.yml
+
+# Grafana Dashboards
+- type: replace
+  path: /instance_groups/name=grafana/jobs/name=cloudfoundry_dashboards?/release
+  value: victoria-metrics
+
+- type: replace
+  path: /instance_groups/name=grafana/jobs/name=grafana/properties/grafana/victoria-metrics/dashboard_folders/name=Cloudfoundry?/files/-
+  value: /var/vcap/jobs/cloudfoundry_dashboards/cf*.json
+
+- type: replace
+  path: /instance_groups/name=grafana/jobs/name=grafana/properties/grafana/victoria-metrics/dashboard_folders/name=VictoriaMetrics?/files/-
+  value: /var/vcap/jobs/cloudfoundry_dashboards/prometheus*.json

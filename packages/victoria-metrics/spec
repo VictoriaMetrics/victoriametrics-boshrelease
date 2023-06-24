@@ -1,0 +1,8 @@
+---
+name: victoria-metrics
+
+dependencies: []
+
+files:
+- common/utils.sh
+- victoria-metrics/victoria-metrics-linux-amd64-v1.87.1.tar.gz

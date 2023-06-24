@@ -1,0 +1,55 @@
+---
+name: victoria-metrics
+
+templates:
+  victoria-metrics_ctl: bin/victoria-metrics_ctl
+  config/prometheus.yml: config/prometheus.yml
+  victoria-metrics-ca.crt.erb: config/victoria-metrics-ca.crt
+  victoria-metrics.crt.erb: config/victoria-metrics.crt
+  victoria-metrics.key.erb: config/victoria-metrics.key
+
+packages:
+  - victoria-metrics
+
+provides:
+- name: victoria-metrics
+  type: conn
+  properties:
+  - victoria-metrics.http_auth.username
+  - victoria-metrics.http_auth.password
+  - victoria-metrics.tls.ca
+  - victoria-metrics.tls.certificate
+  - victoria-metrics.tls.private_key
+  - victoria-metrics.web.port
+  - victoria-metrics.web.external_url
+# - name: prometheus
+#   type: prometheus
+#   properties:
+
+
+properties:
+  victoria-metrics.web.external_url:
+    description: "The URL under which Prometheus is externally reachable"
+  victoria-metrics.web.port:
+    description: "Port to listen on for the web interface, API, and telemetry"
+    default: "8428"
+  victoria-metrics.scrape_configs:
+    description: "Array of scrape configurations"
+  victoria-metrics.http_auth.username:
+    description: "Username for protecting all the HTTP endpoints with HTTP Basic Authentication"
+  victoria-metrics.http_auth.password:
+    description: "Password for protecting all the HTTP endpoints with HTTP Basic Authentication"
+  victoria-metrics.tls.ca:
+    description: "Certificate authority for communication between clients and VictoriaMetrics"
+  victoria-metrics.tls.certificate:
+    description: "An SSL certificate for switching from HTTP to HTTPS"
+  victoria-metrics.tls.private_key:
+    description: "An SSL key for switching from HTTP to HTTPS"
+  victoria-metrics.tls.ca:
+    description: "Certificate authority for communication between clients and VictoriaMetrics"
+  victoria-metrics.retention_period:
+    description: "Retention period in months for the data. Older data is automatically deleted"
+    default: 1
+  victoria-metrics.listen_address:
+    description: "TCP address to listen to for http requests. By default it listens port 8428 on all the network interfaces"
+

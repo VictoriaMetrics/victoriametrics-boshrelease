@@ -1,0 +1,36 @@
+---
+- type: replace
+  path: /instance_groups/name=database/networks/name=Infrastructure/name
+  value: private
+
+- type: replace
+  path: /instance_groups/name=database/vm_type
+  value: g1-small
+
+- type: replace
+  path: /instance_groups/name=database/azs
+  value: [z1]
+
+- type: replace
+  path: /instance_groups/name=victoria-metrics/networks/name=Infrastructure/name
+  value: private
+
+- type: replace
+  path: /instance_groups/name=victoria-metrics/vm_type
+  value: g1-small
+
+- type: replace
+  path: /instance_groups/name=victoria-metrics/azs
+  value: [z1]
+
+- type: replace
+  path: /instance_groups/name=grafana/networks/name=Infrastructure/name
+  value: private
+
+- type: replace
+  path: /instance_groups/name=grafana/vm_type
+  value: g1-small
+
+- type: replace
+  path: /instance_groups/name=grafana/azs
+  value: [z1]

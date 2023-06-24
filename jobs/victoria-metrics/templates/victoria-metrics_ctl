@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+set -eu
+
+RUN_DIR=/var/vcap/sys/run/victoria-metrics
+LOG_DIR=/var/vcap/sys/log/victoria-metrics
+TMP_DIR=/var/vcap/sys/tmp/victoria-metrics
+STORE_DIR=/var/vcap/store/victoria-metrics
+mkdir -p ${RUN_DIR} ${LOG_DIR} ${TMP_DIR} ${STORE_DIR}
+
+PIDFILE=${RUN_DIR}/victoria-metrics.pid
+
+source /var/vcap/packages/victoria-metrics/common/utils.sh
+exec 1>> "${LOG_DIR}/$(basename "$0").stdout.log"
+exec 2>> "${LOG_DIR}/$(basename "$0").stderr.log"
+
+export PATH=/var/vcap/packages/victoria-metrics/bin:${PATH}
+
+case $1 in
+  start)
+    pid_guard ${PIDFILE} "victoria-metrics"
+    echo $$ > ${PIDFILE}
+
+    exec victoria-metrics-prod \
+      -storageDataPath="${STORE_DIR}" \
+      -promscrape.config.strictParse=false \
+      -promscrape.config=/var/vcap/jobs/victoria-metrics/config/prometheus.yml \
+      <% if_p('victoria-metrics.retention_period') do |retention| %> \
+      -retentionPeriod="<%= retention %>" \
+      <% end %> \
+      <% if_p('victoria-metrics.listen_address') do |address| %> \
+      -httpListenAddr="<%= address %>" \
+      <% end %> \
+      <% if_p('victoria-metrics.http_auth.username') do |username| %> \
+      -httpAuth.username="<%= username %>" \
+      <% end %> \
+      <% if_p('victoria-metrics.http_auth.password') do |password| %> \
+      -httpAuth.password="<%= password %>" \
+      <% end %> \
+      <% if_p('victoria-metrics.tls.certificate', 'victoria-metrics.tls.private_key') do %> \
+      -tls \
+      -tlsCertFile=/var/vcap/jobs/victoria-metrics/config/victoria-metrics.crt \
+      -tlsKeyFile=/var/vcap/jobs/victoria-metrics/config/victoria-metrics.key \
+      <% end %> \
+      >>  ${LOG_DIR}/victoria-metrics.stdout.log \
+      2>> ${LOG_DIR}/victoria-metrics.stderr.log
+    ;;
+
+  stop)
+    kill_and_wait ${PIDFILE}
+    ;;
+
+  *)
+    echo "Usage: $0 {start|stop}"
+    exit 1
+  ;;
+
+esac
+exit 0

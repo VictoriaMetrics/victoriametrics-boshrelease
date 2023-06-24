@@ -1,0 +1,5 @@
+check process victoria-metrics
+  with pidfile /var/vcap/sys/run/victoria-metrics/victoria-metrics.pid
+  start program "/var/vcap/jobs/victoria-metrics/bin/victoria-metrics_ctl start"
+  stop program "/var/vcap/jobs/victoria-metrics/bin/victoria-metrics_ctl stop"
+  group vcap

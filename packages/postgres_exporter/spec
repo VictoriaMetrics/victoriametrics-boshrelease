@@ -1,0 +1,6 @@
+---
+name: postgres_exporter
+
+files:
+  - common/utils.sh
+  - postgres_exporter/postgres_exporter-0.11.1.linux-amd64.tar.gz

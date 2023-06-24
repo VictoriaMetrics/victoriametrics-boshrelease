@@ -1,0 +1,86 @@
+# # VictoriaMetrics URL
+# - type: replace
+#   path: /instance_groups/name=victoria-metrics/jobs/name=victoria-metrics/properties/victoria-metrics/web?/external_url
+#   value: https://victoriametrics.((system_domain))
+
+# Grafana URL
+- type: replace
+  path: /instance_groups/name=grafana/jobs/name=grafana/properties/grafana/server?/root_url
+  value: https://grafana.((system_domain))
+
+- type: replace
+  path: /instance_groups/name=grafana/jobs/name=grafana/properties/grafana/victoria-metrics?/tls_skip_verify
+  value: ((skip_ssl_verify))
+
+# Route Registrar
+- type: replace
+  path: /instance_groups/name=grafana/jobs/-
+  value:
+    name: bpm
+    release: bpm
+
+- type: replace
+  path: /instance_groups/name=victoria-metrics/jobs/-
+  value:
+    name: bpm
+    release: bpm
+
+- type: replace
+  path: /instance_groups/name=victoria-metrics/jobs/-
+  value:
+    name: route_registrar
+    release: routing
+    consumes:
+      nats:
+        from: nats
+        deployment: ((cf_deployment_name))
+    properties:
+      route_registrar:
+        routing_api:
+          skip_ssl_validation: ((skip_ssl_verify))
+        routes:
+          - name: victoriametrics
+            registration_interval: 20s
+            port: 8428
+            #tls_port: 8428
+            #server_cert_domain_san: "victoriametrics.((system_domain))"
+            uris:
+              - victoriametrics.((system_domain))
+
+- type: replace
+  path: /instance_groups/name=grafana/jobs/-
+  value:
+    name: route_registrar
+    release: routing
+    consumes:
+      nats:
+        from: nats
+        deployment: ((cf_deployment_name))
+    properties:
+      route_registrar:
+        routing_api:
+          skip_ssl_validation: ((skip_ssl_verify))
+        routes:
+          - name: grafana
+            port: 3000
+            registration_interval: 60s
+            uris:
+              - grafana.((system_domain))
+
+# Releases
+- type: replace
+  path: /releases/-
+  value:
+    name: bpm
+    version: 1.1.9
+    url: https://bosh.io/d/github.com/cloudfoundry/bpm-release?v=1.1.9
+    sha1: dcf0582d838a73de29da273552ae79ac3098ee8b
+
+- type: replace
+  path: /releases/-
+  value:
+    name: routing
+    version: 0.257.0
+    url: https://bosh.io/d/github.com/cloudfoundry/routing-release?v=0.257.0
+    sha1: 6edceabea586399c40f30d6d175c9fa76416700d
+
