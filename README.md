@@ -62,7 +62,7 @@ Depends on your network configuration you can access victoriametrics UI on https
             -v system_domain=
 
 * Please provide all required variables for command above.
-* UAA clients for cf_exporter and firehose_exporter should be created with [manifests/operators/cf/add-cf-uaa-clients.yml ](https://github.com/VictoriaMetrics/victoriametrics-boshrelease/blob/master/manifests/operators/cf/add-cf-uaa-clients.yml) ops file applied to your CF deployment.
+* UAA clients for cf_exporter and firehose_exporter should be created with [manifests/operators/cf/add-cf-uaa-clients.yml ](https://github.com/VictoriaMetrics/victoriametrics-boshrelease/blob/master/manifests/operators/cf/add-cf-exporter-uaa-clients.yml) ops file applied to your CF deployment.
 
 
 You can access grafana UI on https://grafana.system_domain
