@@ -7,8 +7,8 @@ instance_groups:
   azs:
     - AZ1
   instances: 1
-  vm_type: large
-  persistent_disk: 10_240
+  vm_type: 2xlarge
+  persistent_disk: 20480
   stemcell: default
   networks:
     - name: Infrastructure
@@ -35,7 +35,7 @@ instance_groups:
   - AZ1
   instances: 1
   vm_type: 2xlarge
-  persistent_disk: 307200
+  persistent_disk: 20480
   stemcell: default
   networks:
   - name: Infrastructure
@@ -64,8 +64,8 @@ instance_groups:
   azs:
     - AZ1
   instances: 1
-  vm_type: large
-  persistent_disk: 1_024
+  vm_type: 2xlarge
+  persistent_disk: 20480
   stemcell: default
   networks:
     - name: Infrastructure
@@ -119,7 +119,7 @@ update:
 
 stemcells:
 - alias: default
-  os: ubuntu-xenial
+  os: ubuntu-xenial 
   version: latest
 
 releases:

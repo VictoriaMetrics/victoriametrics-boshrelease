@@ -22,9 +22,6 @@ provides:
   - victoria-metrics.tls.private_key
   - victoria-metrics.web.port
   - victoria-metrics.web.external_url
-# - name: prometheus
-#   type: prometheus
-#   properties:
 
 
 properties:
