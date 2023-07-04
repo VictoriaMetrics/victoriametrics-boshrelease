@@ -37,13 +37,11 @@
     type: certificate
     options:
       ca: victoria_metrics_ca
-      common_name: victoriametrics.((system_domain))
+      common_name: victoriametrics.((domain))
       alternative_names:
-      - "victoriametrics.((system_domain))"
-      - "victoriametrics.((apps_domain))"
       - "victoriametrics.default.victoria-metrics.bosh"
       - "*.victoriametrics.default.victoria-metrics.bosh"
-      - "*.((system_domain))"
+      - "*.((domain))"
       - "localhost"
       extended_key_usage:
       - server_auth

@@ -26,10 +26,15 @@
     name: route_registrar
     release: routing
     consumes:
-      nats:
-        from: nats
+      nats-tls:
+        from: nats-tls
         deployment: ((cf_deployment_name))
     properties:
+      nats:
+        tls:
+          client_cert: ((((nats_certificate))))
+          client_key: ((((nats_private_key))))
+          enabled: true
       route_registrar:
         routing_api:
           skip_ssl_validation: ((skip_ssl_verify))
@@ -48,10 +53,15 @@
     name: route_registrar
     release: routing
     consumes:
-      nats:
-        from: nats
+      nats-tls:
+        from: nats-tls
         deployment: ((cf_deployment_name))
     properties:
+      nats:
+        tls:
+          client_cert: ((((nats_certificate))))
+          client_key: ((((nats_private_key))))
+          enabled: true
       route_registrar:
         routing_api:
           skip_ssl_validation: ((skip_ssl_verify))
@@ -75,7 +85,7 @@
   path: /releases/-
   value:
     name: routing
-    version: 0.257.0
-    url: https://bosh.io/d/github.com/cloudfoundry/routing-release?v=0.257.0
-    sha1: 6edceabea586399c40f30d6d175c9fa76416700d
+    version: 0.273.0
+    url: https://bosh.io/d/github.com/cloudfoundry/routing-release?v=0.273.0
+    sha1: bf766a752e752e5c8596d61abc27b57fddb5b0db
 
