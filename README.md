@@ -4,7 +4,10 @@ This bosh release helps you to deploy victoria-metrics tsdb and provide monitori
 1. bosh environment
 2. bosh upload-release 
 3. bosh stemcells
-4. Able to resolve cf.internal domains to use routing release. You can apply ```bosh update-runtime-config --name cf-alias manifests/operators/bosh/bosh-alias-runtime.yaml```
+4. Able to resolve cf.internal domains to use routing release. You can apply 
+```
+bosh update-runtime-config --name cf-alias manifests/operators/bosh/bosh-alias-runtime.yaml
+```
 
 Examples are made with bosh-bootloader and credhub.
 
