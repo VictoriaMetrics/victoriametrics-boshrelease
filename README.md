@@ -43,16 +43,17 @@ Depends on your network configuration you can access victoriametrics UI on https
       <summary>Victoria-metrics deployment with grafana and route registration in CF.</summary>
 
 
-* Please provide all required variables for command above.
-      * bosh_url - bosh director ip address, example 10.0.0.6
-      * uaa_bosh_exporter_client_id and secret - Create UAA client for bosh-exporter by applying [manifests/operators/bosh/add-bosh-exporter-uaa-clients.yml ](https://github.com/VictoriaMetrics/victoriametrics-boshrelease/blob/master/manifests/operators/bosh/add-bosh-exporter-uaa-clients.yml) to your bosh director deployment. 
-            client_id - ```bosh_exporter```, secret ```bosh int vars/director-vars-store.yml --path=/uaa_bosh_exporter_client_secret --json | jq -rj .Blocks[]``` for secrets stored in vars.
-      * bosh_ca_cert - path to bosh CA certificate file. If bbl was used -```eval "$(bbl print-env)" && bbl director-ca-cert > root.ca```
-      * metrics_environment - label for your environment, ex. lab
-      * uaa_clients_cf_exporter_id/secret and uaa_clients_firehose_exporter_id/secret - UAA clients for cf_exporter and firehose_exporter should be created with [manifests/operators/cf/add-cf-uaa-clients.yml ](https://github.com/VictoriaMetrics/victoriametrics-boshrelease/blob/master/manifests/operators/cf/add-cf-exporter-uaa-clients.yml) ops file applied to your CF deployment. Find secrets with ```credhub find -n cf_exporter``` and ```credhub find -n firehose_exporter```
-      * cf_deployment_name - cloudfoundry deployment name. Example cf.
-      * system_domain - cloudfoundry system domain. Example sys.example.com
-      * nats_certificate and nats_private_key - paths to credhub. Use ```credhub find -n nats_client_cert```
+##### Please provide all required variables for command above.
+      
+* bosh_url - bosh director ip address, example 10.0.0.6
+* uaa_bosh_exporter_client_id and secret - Create UAA client for bosh-exporter by applying [manifests/operators/bosh/add-bosh-exporter-uaa-clients.yml ](https://github.com/VictoriaMetrics/victoriametrics-boshrelease/blob/master/manifests/operators/bosh/add-bosh-exporter-uaa-clients.yml) to your bosh director deployment. 
+      client_id - ```bosh_exporter```, secret ```bosh int vars/director-vars-store.yml --path=/uaa_bosh_exporter_client_secret --json | jq -rj .Blocks[]``` for secrets stored in vars.
+* bosh_ca_cert - path to bosh CA certificate file. If bbl was used -```eval "$(bbl print-env)" && bbl director-ca-cert > root.ca```
+* metrics_environment - label for your environment, ex. lab
+* uaa_clients_cf_exporter_id/secret and uaa_clients_firehose_exporter_id/secret - UAA clients for cf_exporter and firehose_exporter should be created with [manifests/operators/cf/add-cf-uaa-clients.yml ](https://github.com/VictoriaMetrics/victoriametrics-boshrelease/blob/master/manifests/operators/cf/add-cf-exporter-uaa-clients.yml) ops file applied to your CF deployment. Find secrets with ```credhub find -n cf_exporter``` and ```credhub find -n firehose_exporter```
+* cf_deployment_name - cloudfoundry deployment name. Example cf.
+* system_domain - cloudfoundry system domain. Example sys.example.com
+* nats_certificate and nats_private_key - paths to credhub. Use ```credhub find -n nats_client_cert```
 
 
       bosh -d victoria-metrics deploy manifests/victoria-metrics.yml \
