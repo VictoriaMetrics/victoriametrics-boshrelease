@@ -4,24 +4,27 @@ This bosh release helps you to deploy victoria-metrics tsdb and provide monitori
 1. bosh environment
 2. bosh upload-release 
 3. bosh stemcells
+4. Able to resolve cf.internal domains to use routing release. You can apply ```bosh update-runtime-config --name cf-alias manifests/operators/bosh/bosh-alias-runtime.yaml```
+
+Examples are made with bosh-bootloader and credhub.
+
 ## Victoria-metrics deployment cases:
 <details>
-      <summary>Standalone victoria-metrics tsdb with basic auth and tls.</summary>
+      <summary>Standalone victoria-metrics tsdb with basic auth and tls without bosh integration</summary>
                
       bosh -d victoria-metrics deploy manifests/victoria-metrics.yml \
             -o manifests/operators/enable-tls.yml \
-            -v system_domain=sys.domain \
-            -v apps_domain=apps.domain \
+            -v domain= \
             -v skip_ssl_verify=true \
             -o manifests/operators/singlevm.yml
 
 * You can use [manifests/operators/gcp_ops.yaml ](https://github.com/VictoriaMetrics/victoriametrics-boshrelease/blob/master/manifests/operators/gcp_ops.yaml) as an example to adjust bosh cloud-config
+* domain - wildcard domain added to tls certificate for victoria-metrics UI
       
       bosh -d victoria-metrics deploy manifests/victoria-metrics.yml \
       -o manifests/operators/gcp_ops.yaml \
       -o manifests/operators/enable-tls.yml \
-      -v system_domain=sys.domain \
-      -v apps_domain=apps.domain \
+      -v domain= \
       -v skip_ssl_verify=true \
       -o manifests/operators/singlevm.yml
      
@@ -36,7 +39,18 @@ Depends on your network configuration you can access victoriametrics UI on https
 <details>
       <summary>Victoria-metrics deployment with grafana and route registration in CF.</summary>
 
-* Create UAA client for bosh-exporter by applying [manifests/operators/bosh/add-bosh-exporter-uaa-clients.yml ](https://github.com/VictoriaMetrics/victoriametrics-boshrelease/blob/master/manifests/operators/bosh/add-bosh-exporter-uaa-clients.yml) to your bosh director deployment
+
+* Please provide all required variables for command above.
+      * bosh_url - bosh director ip address, example 10.0.0.6
+      * uaa_bosh_exporter_client_id and secret - Create UAA client for bosh-exporter by applying [manifests/operators/bosh/add-bosh-exporter-uaa-clients.yml ](https://github.com/VictoriaMetrics/victoriametrics-boshrelease/blob/master/manifests/operators/bosh/add-bosh-exporter-uaa-clients.yml) to your bosh director deployment. 
+            client_id - ```bosh_exporter```, secret ```bosh int vars/director-vars-store.yml --path=/uaa_bosh_exporter_client_secret --json | jq -rj .Blocks[]``` for secrets stored in vars.
+      * bosh_ca_cert - path to bosh CA certificate file. If bbl was used -```eval "$(bbl print-env)" && bbl director-ca-cert > root.ca```
+      * metrics_environment - label for your environment, ex. lab
+      * uaa_clients_cf_exporter_id/secret and uaa_clients_firehose_exporter_id/secret - UAA clients for cf_exporter and firehose_exporter should be created with [manifests/operators/cf/add-cf-uaa-clients.yml ](https://github.com/VictoriaMetrics/victoriametrics-boshrelease/blob/master/manifests/operators/cf/add-cf-exporter-uaa-clients.yml) ops file applied to your CF deployment. Find secrets with ```credhub find -n cf_exporter``` and ```credhub find -n firehose_exporter```
+      * cf_deployment_name - cloudfoundry deployment name. Example cf.
+      * system_domain - cloudfoundry system domain. Example sys.example.com
+      * nats_certificate and nats_private_key - paths to credhub. Use ```credhub find -n nats_client_cert```
+
 
       bosh -d victoria-metrics deploy manifests/victoria-metrics.yml \
             -o manifests/operators/monitor-bosh.yml \
@@ -46,7 +60,7 @@ Depends on your network configuration you can access victoriametrics UI on https
             -v uaa_bosh_exporter_client_id= \
             -v uaa_bosh_exporter_client_secret= \
             --var-file bosh_ca_cert= \
-            -v metrics_environment= \
+            -v metrics_environment=lab \
             -o manifests/operators/monitor-cf.yml \
             -v uaa_clients_cf_exporter_id=cf_exporter \
             -v uaa_clients_cf_exporter_secret= \
@@ -59,10 +73,9 @@ Depends on your network configuration you can access victoriametrics UI on https
             -v metron_deployment_name=cf \
             -o manifests/operators/enable-cf-route-registrar.yml \
             -v cf_deployment_name= \
-            -v system_domain=
-
-* Please provide all required variables for command above.
-* UAA clients for cf_exporter and firehose_exporter should be created with [manifests/operators/cf/add-cf-uaa-clients.yml ](https://github.com/VictoriaMetrics/victoriametrics-boshrelease/blob/master/manifests/operators/cf/add-cf-exporter-uaa-clients.yml) ops file applied to your CF deployment.
+            -v system_domain= \
+            -v nats_certificate= \
+            -v nats_private_key=
 
 
 You can access grafana UI on https://grafana.system_domain
