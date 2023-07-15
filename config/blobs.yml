@@ -1,84 +1,80 @@
-bosh_exporter-3.4.0.linux-amd64.tar.gz:
+bosh_exporter/bosh_exporter-3.4.0.linux-amd64.tar.gz:
   size: 7727120
-  object_id: dd8361e6-e1bd-47a8-4595-30a15cb9ab86
+  object_id: f4f97dd3-b303-4fc1-404f-ef1a37ac2f3b
   sha: sha256:3d9cd96367d35cf4258c90f637f9778711b1c252c00661bd30d5e60ee3e38478
-cf_exporter_1.0.0.linux-amd64.tar.gz:
+cf_exporter/cf_exporter_1.0.0.linux-amd64.tar.gz:
   size: 6880501
-  object_id: 3ad517fe-20a3-4f5a-7d9c-54be74386b50
+  object_id: 0ff9bc53-aa35-41d6-6491-9cc87a623ee1
   sha: sha256:303ac729668b9822f80da81e36ab5f83f53fa9a4c2a6e54075341649504082b9
-firehose_exporter-6.2.0.linux-amd64.tar.gz:
+firehose_exporter/firehose_exporter-6.2.0.linux-amd64.tar.gz:
   size: 9102454
-  object_id: dd8dd0ac-41b9-4ea6-7545-ed1b35605080
+  object_id: 1d3bd2f2-8246-4859-5b5b-8f4fcaee83be
   sha: sha256:6f81a643a158a578c7e8b08e3fc06044ba957806d87c33d58955c1142cd54d8f
-flant-statusmap-panel-v0.5.1.zip:
-  size: 289519
-  object_id: 5d3ade1f-1656-4e63-47da-42d1c59ef397
-  sha: sha256:6841f3687f70711673766646aca3a2bb2d28a8e2e6336370329c90d917beb5a9
-fontconfig-2.13.92.tar.gz:
+fontconfig/fontconfig-2.13.92.tar.gz:
   size: 2127384
-  object_id: fb6872ad-e043-417e-47f7-64636b209f7f
+  object_id: 8691f810-a080-4fbc-65ed-2dc8840be893
   sha: sha256:3406a05b83a42231e3df68d02bc0a0cf47b3f2e8f11c8ede62267daf5f130016
-freefont-otf-20120503.tar.gz:
+freefont/freefont-otf-20120503.tar.gz:
   size: 4487813
-  object_id: 67f740c6-685f-48fb-77f9-7086ca9e4a7e
+  object_id: d7b598ae-78d9-4884-4b06-74e14fb9472a
   sha: sha256:3a6c51868c71b006c33c4bcde63d90927e6fcca8f51c965b8ad62d021614a860
-freetype-2.9.1.tar.gz:
+freetype/freetype-2.9.1.tar.gz:
   size: 2533956
-  object_id: 869f485d-7c89-42ae-6c9f-00bae09ce9ba
+  object_id: ada6a939-00ff-4621-67db-e0d24159a4da
   sha: sha256:ec391504e55498adceb30baceebd147a6e963f636eb617424bcfc47a169898ce
-gperf-3.1.tar.gz:
+gperf/gperf-3.1.tar.gz:
   size: 1215925
-  object_id: 954c5cb0-e45e-49c6-6cbb-db152f21d96e
+  object_id: 80d43145-9571-42b8-5a36-2f8d4757ad66
   sha: sha256:588546b945bba4b70b6a3a616e80b4ab466e3f33024a352fc2198112cdbb3ae2
-grafana-9.3.6.linux-amd64.tar.gz:
+grafana/grafana-9.3.6.linux-amd64.tar.gz:
   size: 89397564
-  object_id: c67046a6-e7ec-4582-42b1-64706999896b
+  object_id: 3664b95d-ed53-47ac-5c6d-85d5a1492c4a
   sha: sha256:8d150fadbea872abb1e12acc9bf1f0ff60ee1bbb23da32a14a59f5eb29e31f03
-grafana-clock-panel-v2.1.2.zip:
+grafana_plugins/flant-statusmap-panel-v0.5.1.zip:
+  size: 289519
+  object_id: 7ef5c9a4-721f-4b1c-629f-bebb1e3d27c4
+  sha: sha256:6841f3687f70711673766646aca3a2bb2d28a8e2e6336370329c90d917beb5a9
+grafana_plugins/grafana-clock-panel-v2.1.2.zip:
   size: 457869
-  object_id: 1ed0e59b-eebc-409b-7c48-f295f88c6c79
+  object_id: bbc028f8-eec8-482a-64bc-2d9382c9aa68
   sha: sha256:fedca1b21d6e3a184e5b3ca63ed3420a7f73ebca00c01ce27db50d0c8efc100c
-grafana-piechart-panel-v1.6.4.zip:
+grafana_plugins/grafana-piechart-panel-v1.6.4.zip:
   size: 278922
-  object_id: ddad0557-5809-4a34-6450-a99690b233e1
+  object_id: dbeaa708-9008-4d96-4a86-8a8d54943665
   sha: sha256:c8637c0331eb0270cb127e19ea0d839b2b4107aecb27ed518d0794d90ffcb52e
-grafana-worldmap-panel-v0.3.2.zip:
+grafana_plugins/grafana-worldmap-panel-v0.3.2.zip:
   size: 1286056
-  object_id: 8597e8b2-2515-4441-50ed-cf39795543a0
+  object_id: 436f5f46-9834-4e67-7f82-b1ca56f2f610
   sha: sha256:1f9664d153385a53c610f1b2a91a9cb846a4619e479a3d1299dbbc501ea85a4e
-jdbranham-diagram-panel-v1.7.3.zip:
+grafana_plugins/jdbranham-diagram-panel-v1.7.3.zip:
   size: 3749121
-  object_id: e3b2ec66-4e97-4949-636c-8b60acc0be0e
+  object_id: 9a7dc16f-8215-4810-4cfc-005e49668414
   sha: sha256:e79848168bdf4ac542088943fed756072fa5af25e8c7ba2b6d08de6de015a268
-jq-1.6.linux64:
-  size: 3953824
-  object_id: d1a38ea4-0f16-46ef-6655-a70558315baf
-  sha: sha256:af986793a515d500ab2d35f8d2aecd656e764504b789b66d7e1a0b727a124c44
-libxml2-2.9.10.tar.gz:
-  size: 5624761
-  object_id: b359d7ba-a89a-4068-5a60-d04fa6dd2a05
-  sha: sha256:aafee193ffb8fe0c82d4afef6ef91972cbaf5feea100edc2f262750611b4be1f
-mtanda-histogram-panel-v0.1.6.zip:
+grafana_plugins/mtanda-histogram-panel-v0.1.6.zip:
   size: 76062
-  object_id: d8f86f45-a8d7-4821-4bae-8a3675c059a6
+  object_id: 97fef1e1-50ea-4e0b-59a6-f9fcc91133b9
   sha: sha256:60495c5eca135fdc31530f299e2caab3389840ad8526e17a0c6e0d5934e6858b
-postgres_exporter-0.11.1.linux-amd64.tar.gz:
-  size: 7809573
-  object_id: 0925ab67-4ed6-4da5-772c-16507227be5d
-  sha: sha256:ec27e2a52b764c4313076ea6db335607cc40fb8a503dcb74d9517dc8baf049f0
-util-linux-2.36.1.tar.gz:
-  size: 11151380
-  object_id: 4bf9da3b-73bc-4c12-6fe7-8800d70e8529
-  sha: sha256:37de03dbb98cdeffdf9e754122b0aca2a9bbdc19769f6570dfcb6f123643bf53
-utils.sh:
-  size: 2820
-  object_id: 7c798df3-6542-41ef-4cd9-38ab11f0c1f9
-  sha: sha256:c9c543c31275afcd1065413036ee9abff76b0d8cf538f09f27b8d88b99afafd6
-victoria-metrics-linux-amd64-v1.87.1.tar.gz:
-  size: 9940658
-  object_id: a31dcb2b-2a82-48a1-76a5-7c4aebfa4f54
-  sha: sha256:4d1c950996c00d91c1149d43e8259f4b392db02eda3d61f6c6c49ff07f887c2a
-vonage-status-panel-v1.0.10.zip:
+grafana_plugins/vonage-status-panel-v1.0.10.zip:
   size: 401708
-  object_id: 8c20e160-c325-4e7d-5bec-746ca871db99
+  object_id: 9899c024-7a97-497d-47f4-35307b51abce
   sha: sha256:1d3ffa533def063f077415cb775bbd54ad4bd1b9f5bfe7e62250635b77dc5589
+jq/jq-1.6.linux64:
+  size: 3953824
+  object_id: e524fd8c-bdb5-420b-451e-da56a4bb0f50
+  sha: sha256:af986793a515d500ab2d35f8d2aecd656e764504b789b66d7e1a0b727a124c44
+libxml2/libxml2-2.9.10.tar.gz:
+  size: 5624761
+  object_id: 850de2f8-7181-49df-44cf-83cf5b716a2c
+  sha: sha256:aafee193ffb8fe0c82d4afef6ef91972cbaf5feea100edc2f262750611b4be1f
+postgres_exporter/postgres_exporter-0.11.1.linux-amd64.tar.gz:
+  size: 7809573
+  object_id: 96b325fb-00c5-4d96-4e1d-390aba7ae1ce
+  sha: sha256:ec27e2a52b764c4313076ea6db335607cc40fb8a503dcb74d9517dc8baf049f0
+util-linux/util-linux-2.36.1.tar.gz:
+  size: 11151380
+  object_id: 65e1f666-a222-446d-6a7f-ee167e266c67
+  sha: sha256:37de03dbb98cdeffdf9e754122b0aca2a9bbdc19769f6570dfcb6f123643bf53
+victoria-metrics/victoria-metrics-linux-amd64-v1.87.1.tar.gz:
+  size: 9940658
+  object_id: a9956452-9275-4da7-7347-10d41d84afe9
+  sha: sha256:4d1c950996c00d91c1149d43e8259f4b392db02eda3d61f6c6c49ff07f887c2a
