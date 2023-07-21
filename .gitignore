@@ -18,3 +18,4 @@ cf.yaml
 deploy.sh
 victoria-metrics-bosh-release.key.json
 clear-credhub.sh
+manifest.yaml
