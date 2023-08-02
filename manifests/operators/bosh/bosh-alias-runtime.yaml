@@ -185,3 +185,9 @@ addons:
           query: '*'
     release: bosh-dns-aliases
   name: bosh-dns-aliases
+  include:
+    jobs:
+    - name: grafana
+      release: victoria-metrics
+    - name: victoria-metrics
+      release: victoria-metrics
