@@ -1,6 +1,6 @@
 name: victoria-metrics
 version: 0.0.1
-commit_hash: 3067be6
+commit_hash: a7f996d
 uncommitted_changes: true
 jobs:
 - name: bosh_dashboards
@@ -37,9 +37,9 @@ jobs:
   packages:
   - firehose_exporter
 - name: grafana
-  version: b2b8c8f4ebc86f99ff1406ba2f4f2cda717dd10edbf0916bff58d77d10ac4dc6
-  fingerprint: b2b8c8f4ebc86f99ff1406ba2f4f2cda717dd10edbf0916bff58d77d10ac4dc6
-  sha1: sha256:d074dd46843ff5c5b2fd2110b5294c324c00a98ba3e713741a889bef11281d74
+  version: 2ba19b0572337ee2915bbe9bbfa174d6b99d4872e3e2fccefc133cd966af004f
+  fingerprint: 2ba19b0572337ee2915bbe9bbfa174d6b99d4872e3e2fccefc133cd966af004f
+  sha1: sha256:984377c90f83c51427dbf43b955940f91b0fc045d719a1762ecb7ec6b1026a56
   packages:
   - grafana
   - grafana_plugins
@@ -61,9 +61,9 @@ jobs:
   packages:
   - postgres_exporter
 - name: victoria-metrics
-  version: e39b3a675eb5e0dd9ce7ff7d32001969369847b685cbd65aa115148e87d871eb
-  fingerprint: e39b3a675eb5e0dd9ce7ff7d32001969369847b685cbd65aa115148e87d871eb
-  sha1: sha256:235246d02951ffe3e10b9985f2d490c7480a769fe8a080f10598b3a5e1c22ebd
+  version: 8d5e8ca2ded9633372a6c6c6bb5496465e81f2e7a2107e146f83548b6fa26a20
+  fingerprint: 8d5e8ca2ded9633372a6c6c6bb5496465e81f2e7a2107e146f83548b6fa26a20
+  sha1: sha256:99e6942e9f635282d7b633afe2fee64a7cda38172f886559fd0358820458b814
   packages:
   - victoria-metrics
 packages:

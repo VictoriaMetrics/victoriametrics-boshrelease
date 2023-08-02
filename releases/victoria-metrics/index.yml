@@ -1,8 +1,4 @@
 builds:
-  10aa760a-de3a-4c21-626a-c5fee0a12b04:
-    version: 0.0.3
-  29580109-c751-4aa5-4ad6-c9be01dbbe12:
-    version: 0.0.2
-  e07b0d16-c130-4142-7615-c9eff21cd55e:
+  e4667f77-145c-429d-4594-87309cc81208:
     version: 0.0.1
 format-version: "2"
